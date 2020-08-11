@@ -1,5 +1,5 @@
-CUDA_PATH = /usr/local/cuda-10.1/
-CUDA_INCLUDE = $(CUDA_PATH)/include
+CUDA_PATH = /sw/summit/cuda/10.1.243/
+CUDA_INCLUDE = $(CUDA_PATH)
 CUDA_LIB = $(CUDA_PATH)/lib64
 
 CC = mpicc
@@ -21,5 +21,5 @@ all: $(OBJS)
 
 clean:
 	rm -f *.o *.x *~ \#*\#
-#distributed-3dfft.x: clean_dist_3dfft.c
-#	mpicc -I/usr/local/cuda-10.1/include -L -lcudart -lcufft -fopenmp -DOMP_NUM_THREADS=6 clean_dist_3dfft.c -o distributed-3dfft.x
+
+
