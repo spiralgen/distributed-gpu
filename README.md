@@ -57,7 +57,7 @@ can be identified.
 The all-to-all communication between GPUs is implemented as
 asynchronous memory copies betweeen peer GPUs
 (``cudaMemcpyPeerAsync``) with multiple streams. The all-to-all
-implementation supports exactly 6 GPUs.
+implementation supports **exactly** 6 GPUs.
 
 The two approaches that are tested are:
 1. Packing the entire 3D FFT before the all-to-all (``packed_fft``).
@@ -70,11 +70,13 @@ make                    #creates 2 executables packed_fft.x and fused_packed.x
 
 ### Execution
 ```
-export OMP_NUM_THREADS=6
 ./packed_fft.x 32       #packs data before communication on a (32 x 6)^3 FFT on 6 GPUs
 ./fused_packed.x 32     #fuses the packing with the communication on a (32 x 6)^3 FFT on 6 GPUs
 ```		
-To run an experiment with multiple different sizes on Summit:
+### Running on Summit
+A job script is included for running on Summit. **You will need to update the script with a valid project number.** 
+
+To run an experiment with multiple different sizes on Summit, replace the job with the following commands:
 ```
 for n in 32 48 64 80 96 112 128 134 160 171 176
   do
@@ -109,7 +111,8 @@ performance of any collective communication (including the all-to-all)
 is dependent on the underlying assumptions inherent in the
 implementation. These assumptions includes the algorithm(s) being
 used, the performance of the algorithms as the number of nodes
-increases.
+increases. Local computation is assumed to be executed by all 6 GPUs
+on a Summit node.
 
 We identify the assumptions by running strong scaling numbers of a
 single large 3D-FFT (default is 1024^3) distributed with the
@@ -127,8 +130,10 @@ make                    #creates executable distributed-3dfft.x
 ```
 
 ### Execution (on Summit)
+A job script is included for running on Summit. **You will need to update the script with a valid project number.** 
+
+To run an experiment with multiple different sizes on Summit, replace the job with the following commands:
 ```
-export OMP_NUM_THREADS=6
 for resources in 2 4 8 16 32 64 128 256; do
   jsrun --smpiargs="-gpu" --nrs $resources --tasks_per_rs 1 --cpu_per_rs 6 --gpu_per_rs 6 --rs_per_host 1 ./distributed-3dfft.x
 done
