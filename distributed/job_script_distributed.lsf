@@ -1,0 +1,12 @@
+#!/bin/bash
+### Begin BSUB Options
+#BSUB -P PROJ_ID ## use your own project number 
+#BSUB -J TESTGPU
+#BSUB -W 0:10
+#BSUB -nnodes 2
+
+module load cuda
+
+## export OMP_NUM_THREADS=6
+jsrun --smpiargs="-gpu" --nrs 2 --tasks_per_rs 1 --cpu_per_rs 6 --gpu_per_rs 6 --rs_per_host 1 ./distributed-3dfft.x
+
