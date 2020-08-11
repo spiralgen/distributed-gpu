@@ -1,7 +1,7 @@
 # Location of the CUDA Toolkit
 CUDA_PATH ?= /usr/local/cuda
 HOST_COMPILER ?= g++
-NVCC          := $(CUDA_PATH)/bin/nvcc -ccbin $(HOST_COMPILER)
+NVCC          := nvcc -ccbin $(HOST_COMPILER)
 
 # Common includes and paths for CUDA
 INCLUDES  := 
