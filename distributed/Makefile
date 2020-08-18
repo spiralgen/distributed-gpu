@@ -3,7 +3,7 @@ CUDA_INCLUDE = $(CUDA_PATH)
 CUDA_LIB = $(CUDA_PATH)/lib64
 
 CC = mpicc
-CFLAGS = -std=c99 -I$(CUDA_INCLUDE)
+CFLAGS = -std=c99 -I$(CUDA_INCLUDE) -fopenmp
 
 
 LIBS =  -L$(CUDA_LIB) -lcudart -lcufft -fopenmp
