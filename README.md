@@ -64,6 +64,7 @@ The two approaches that are tested are:
 2. Performing packing as part of the all-to-all (``fused_packed``).
 
 ### Compilation
+Before building, update `CUDA_PATH` in the `Makefile` to the CUDA install path you'd like to use.
 ```
 make                    #creates 2 executables packed_fft.x and fused_packed.x
 ```
@@ -82,7 +83,7 @@ for n in 32 48 64 80 96 112 128 134 160 171 176
   do
     for run in {1..10}
       do
-        jsrun --nrs 1 --cpu_per_rs 6 --gpu_per_rs 6 --rs_per_host 1 --np 1 --latency_priority CPU-CPU --launch_distribution cyclic --bind rs <<executable>> <<size>>
+        jsrun --nrs 1 --cpu_per_rs 6 --gpu_per_rs 6 --rs_per_host 1 --np 1 --latency_priority CPU-CPU --launch_distribution cyclic --bind rs <<executable>> $n
     done
 done
 ``` 
