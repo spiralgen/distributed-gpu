@@ -19,6 +19,7 @@ int main(int argc, char **argv) {
   cudaCheckError();
 
   int p = numGPUs;
+  omp_set_num_threads(p);  // create as many CPU threads as there are CUDA devices
 
   // allocate device buffers
   cufftDoubleComplex**     sendbufs = (cufftDoubleComplex **) malloc(p * sizeof(cufftDoubleComplex *));
